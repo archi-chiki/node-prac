@@ -7,3 +7,4 @@ package-lock.json
 
 # 기타
 sample.js
+.DS_Store

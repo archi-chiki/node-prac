@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>게시판</title>
+  <title>Homepage</title>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -35,19 +35,19 @@
           </tr>
         </thead>
         <tbody>
-          <% posts.forEach(post=> { %>
+          <% postData.forEach(post=> { %>
             <tr>
               <td>
                 <%= post.id %>
               </td>
               <td><a href="/post/<%= post.id %>">
-                  <%= post.title %>
+                  <%= post.subject %>
                 </a></td>
               <td>
-                <%= post.author %>
+                <%= post.authorId %>
               </td>
               <td>
-                <%= post.date %>
+                <%= post.createdAt %>
               </td>
               <td>
                 <%= post.views %>

@@ -25,6 +25,7 @@ model Post {
   id            Int           @id @default(autoincrement())
   authorId      Int?
   subject       String
+  content       String
   author        User?         @relation(fields: [authorId], references: [id])
   createdAt     DateTime      @default(now())
 }
