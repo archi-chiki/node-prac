@@ -17,5 +17,14 @@ model User {
   id            Int           @id @default(autoincrement())
   name          String
   email         String        @unique
-  craetedAt     DateTime      @default(now())
+  posts         Post[]
+  createdAt     DateTime      @default(now())
+}
+
+model Post {
+  id            Int           @id @default(autoincrement())
+  authorId      Int?
+  subject       String
+  author        User?         @relation(fields: [authorId], references: [id])
+  createdAt     DateTime      @default(now())
 }
