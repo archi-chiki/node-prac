@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homepage</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <!-- Header -->
+  <%- include('../partials/header') %>
+
+    <div class="container">
+      <div class="post">
+        <div class="post-title">
+          <%= postContent[0].subject %>
+        </div>
+        <div class="post-info">
+          [작성자] <%= postContent[0].author.name %> <br>
+            [작성시간] <%= postContent[0].createdAt %>
+        </div>
+        <div class="post-content">
+          <%= postContent[0].content %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <%- include('../partials/footer') %>
+</body>
+
+</html>

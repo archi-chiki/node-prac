@@ -6,8 +6,7 @@ const PORT = process.env.PORT || 3000;
 const usersListRouter = require("./routes/users.list.router");
 const usersDeleteRouter = require("./routes/users.delete.router");
 const usersCreateRouter = require("./routes/users.create.router");
-const boardWriteRouter = require("./routes/board.write.router");
-const boardListRouter = require("./routes/board.list.router");
+const boardRouter = require("./routes/board.router");
 
 // Body parser
 app.use(express.json());
@@ -22,23 +21,51 @@ app.get("/", (req, res) => {
   res.render("pages/index");
 });
 
-// 사용자 생성, 조회, 삭제
+// 사용자 관련 기능
+app.use("/users", usersCreateRouter);
 app.use("/users", usersListRouter);
 app.use("/users", usersDeleteRouter);
-app.use("/users", usersCreateRouter);
 
-// 게시판 조회, 글작성
+// 게시판 관련 기능
+app.use("/board", boardRouter);
+
 // app.get("/board", async (req, res) => {
 //   const postData = await imsi.fetchPosts();
 
 //   res.render("pages/board", { postData });
 // });
-app.use("/board", boardListRouter);
-app.use("/board/write", boardWriteRouter);
 
-app.get("/board/write", (req, res) => {
-  res.render("pages/write");
-});
+// const docs = [
+//   {
+//     subject: "안녕하세요 1",
+//     author: "츠키",
+//     content:
+//       "prisma에서 DB테이블 객체에 접근하기 위해선 위에서 생성한 prisma객체에 이전에 생성한 Schema에서 만든 모델명을 이용해 prisma ORM을 사용할 수 있다.",
+//   },
+//   {
+//     subject: "안녕하세요 2",
+//     author: "츠키",
+//     content:
+//       "prisma에서 DB테이블 객체에 접근하기 위해선 위에서 생성한 prisma객체에 이전에 생성한 Schema에서 만든 모델명을 이용해 prisma ORM을 사용할 수 있다.",
+//   },
+//   {
+//     subject: "안녕하세요 3",
+//     author: "츠키",
+//     content:
+//       "prisma에서 DB테이블 객체에 접근하기 위해선 위에서 생성한 prisma객체에 이전에 생성한 Schema에서 만든 모델명을 이용해 prisma ORM을 사용할 수 있다.",
+//   },
+//   {
+//     subject: "안녕하세요 4",
+//     author: "츠키",
+//     content:
+//       "prisma에서 DB테이블 객체에 접근하기 위해선 위에서 생성한 prisma객체에 이전에 생성한 Schema에서 만든 모델명을 이용해 prisma ORM을 사용할 수 있다.",
+//   },
+// ];
+
+// app.get("/board/:id", (req, res) => {
+//   const posts = docs[req.params.id];
+//   res.render("pages/board.content.ejs", { posts });
+// });
 
 async function startServer() {
   try {

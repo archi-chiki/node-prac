@@ -28,7 +28,7 @@
           <tr>
             <th>번호</th>
             <th>제목</th>
-            <th>글쓴이</th>
+            <th>작성자</th>
             <th>날짜</th>
             <th>조회수</th>
             <th>추천수</th>
@@ -40,11 +40,11 @@
               <td>
                 <%= post.id %>
               </td>
-              <td><a href="/post/<%= post.id %>">
+              <td><a href="/board/<%= post.id %>">
                   <%= post.subject %>
                 </a></td>
               <td>
-                <%= post.authorId %>
+                <%= post.author.name %>
               </td>
               <td>
                 <%= post.createdAt %>
