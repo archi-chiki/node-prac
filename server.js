@@ -1,12 +1,13 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 3000;
-const usersListRouter = require("./routes/users.list.router");
-const usersDeleteRouter = require("./routes/users.delete.router");
-const usersCreateRouter = require("./routes/users.create.router");
-const boardRouter = require("./routes/board.router");
+const usersListRouter = require("./src/routes/users.list.router");
+const usersDeleteRouter = require("./src/routes/users.delete.router");
+const usersCreateRouter = require("./src/routes/users.create.router");
+const boardRouter = require("./src/routes/board.router");
 
 // Body parser
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // View Engine
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "src/views"));
 app.use(express.static("public"));
 
 // 메인 페이지

@@ -1,12 +1,12 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const boardPostsModel = require("../models/board.model");
+const boardPostsModel = require("../../models/board.model");
 
 /* 게시글 목록 조회 */
 async function sendAllPosts(req, res) {
   try {
     const postData = await boardPostsModel.getAllPosts();
-    console.log(postData);
+    // console.log(postData);
 
     res.render("pages/board", { postData });
   } catch (e) {
@@ -20,7 +20,7 @@ async function sendOnePost(req, res) {
   const postContent = await boardPostsModel.getOnePost(postId);
   console.log(postContent);
 
-  res.render("pages/post", { postContent });
+  res.render("pages/post", { postContent, postId });
 }
 
 /* 글작성 페이지 호출 */
@@ -49,9 +49,29 @@ async function writePost(req, res) {
   }
 }
 
+/* 게시글 수정 페이지 호출 */
+async function getEditPage(req, res) {
+  const postId = req.params.id;
+  const postContent = await boardPostsModel.getOnePost(postId);
+
+  res.render("pages/edit", { postContent });
+}
+
+/* 수정된 게시글 데이터 DB로 전송 */
+function updateEditedData(req, res) {
+  const postId = req.params.id;
+  const editedData = req.body;
+
+  boardPostsModel.updateEditedData(postId, editedData);
+
+  res.redirect(`/board/${postId}`);
+}
+
 module.exports = {
   sendAllPosts,
   sendOnePost,
   writePost,
+  getEditPage,
+  updateEditedData,
   getCreate,
 };

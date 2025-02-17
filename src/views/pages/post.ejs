@@ -11,8 +11,13 @@
 <body>
   <!-- Header -->
   <%- include('../partials/header') %>
-
     <div class="container">
+      <a href="/board/edit/<%= postId %>">
+        <button class="function-btn modify">
+          수정
+        </button>
+      </a>
+      <button class="function-btn delete">삭제</button>
       <div class="post">
         <div class="post-title">
           <%= postContent[0].subject %>

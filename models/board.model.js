@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const { post } = require("../src/routes/users.list.router");
 const prisma = new PrismaClient();
 
 /* 게시글 목록 데이터 */
@@ -52,7 +53,28 @@ async function getOnePost(postId) {
   }
 }
 
+/* 단일 게시글 내용 조회 */
+async function updateEditedData(postId, editedData) {
+  console.log(editedData);
+
+  try {
+    await prisma.post.updateMany({
+      where: {
+        id: parseInt(postId),
+      },
+      data: {
+        subject: editedData.subject,
+        content: editedData.content,
+      },
+    });
+    return "Success"; // 데이터 뭐를 줘야하는거임..?
+  } catch (error) {
+    console.log("Error in updatePost:", error.message);
+  }
+}
+
 module.exports = {
   getAllPosts,
   getOnePost,
+  updateEditedData,
 };
