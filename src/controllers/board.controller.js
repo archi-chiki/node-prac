@@ -1,6 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const boardPostsModel = require("../../models/board.model");
+require("dotenv").config({ path: "../../.env" });
 
 /* 게시글 목록 조회 */
 async function sendAllPosts(req, res) {
@@ -19,8 +20,10 @@ async function sendOnePost(req, res) {
   const postId = req.params.id;
   const postContent = await boardPostsModel.getOnePost(postId);
   console.log(postContent);
+  const SERVER_IP = process.env.SERVER_IP;
+  const PORT = process.env.PORT;
 
-  res.render("pages/post", { postContent, postId });
+  res.render("pages/post", { postContent, postId, SERVER_IP, PORT });
 }
 
 /* 글작성 페이지 호출 */
@@ -67,6 +70,18 @@ function updateEditedData(req, res) {
   res.redirect(`/board/${postId}`);
 }
 
+/* 게시글 삭제 */
+async function deletePost(req, res) {
+  const postId = req.params.id;
+  const deletePostReturn = await boardPostsModel.deletePost(postId);
+
+  if (deletePostReturn == "Succeed") {
+    res.redirect("/board");
+  } else {
+    res.json({ Status: "Delete Failed" });
+  }
+}
+
 module.exports = {
   sendAllPosts,
   sendOnePost,
@@ -74,4 +89,5 @@ module.exports = {
   getEditPage,
   updateEditedData,
   getCreate,
+  deletePost,
 };

@@ -14,5 +14,7 @@ boardRouter.get("/edit/:id", boardController.getEditPage);
 boardRouter.post("/edit/:id", boardController.updateEditedData);
 // 게시글 데이터 전송
 boardRouter.post("/write", boardController.writePost);
+// 게시글 삭제
+boardRouter.delete("/delete/:id", boardController.deletePost);
 
 module.exports = boardRouter;

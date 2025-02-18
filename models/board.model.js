@@ -1,5 +1,4 @@
 const { PrismaClient } = require("@prisma/client");
-const { post } = require("../src/routes/users.list.router");
 const prisma = new PrismaClient();
 
 /* 게시글 목록 데이터 */
@@ -73,8 +72,18 @@ async function updateEditedData(postId, editedData) {
   }
 }
 
+async function deletePost(postId) {
+  await prisma.post.delete({
+    where: {
+      id: parseInt(postId),
+    },
+  });
+  return "Succeed";
+}
+
 module.exports = {
   getAllPosts,
   getOnePost,
   updateEditedData,
+  deletePost,
 };
